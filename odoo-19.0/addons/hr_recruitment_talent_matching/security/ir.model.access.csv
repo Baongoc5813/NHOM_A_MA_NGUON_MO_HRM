@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_hr_matching_rule_officer,access_hr_matching_rule_officer,model_hr_matching_rule,hr_recruitment.group_hr_recruitment_user,1,1,1,1
