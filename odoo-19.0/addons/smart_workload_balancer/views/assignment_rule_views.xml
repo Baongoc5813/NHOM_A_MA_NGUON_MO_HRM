@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_assignment_rule_tree" model="ir.ui.view">
+        <field name="name">project.assignment.rule.tree</field>
+        <field name="model">project.assignment.rule</field>
+        <field name="arch" type="xml">
+            <list string="Task Assignment Rule">
+                <field name="project_id"/>
+                <field name="max_task_threshold" string="Max Tasks per Employee"/>
+                <field name="max_overtime_threshold" string="Max Overtime Hours"/>
+                <field name="max_overdue_threshold" string="Max Overdue Tasks"/>
+                <field name="skill_weight" string="Skill Weight (%)" help="Higher value gives more priority to task skill match when recommending assignees."/>
+                <field name="workload_weight" string="Workload Weight (%)" help="Higher value gives more priority to low current workload when recommending assignees."/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_assignment_rule_form" model="ir.ui.view">
+        <field name="name">project.assignment.rule.form</field>
+        <field name="model">project.assignment.rule</field>
+        <field name="arch" type="xml">
+            <form string="Task Assignment Rule">
+                <sheet>
+                    <group>
+                        <group string="Application Scope">
+                            <field name="project_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Overload Thresholds">
+                            <field name="max_task_threshold"/>
+                            <field name="max_overtime_threshold"/>
+                            <field name="max_overdue_threshold"/>
+                        </group>
+                    </group>
+                    <group string="Recommendation Weights">
+                        <field name="skill_weight" string="Skill Weight (%)"/>
+                        <field name="workload_weight" string="Workload Weight (%)"/>
+                    </group>
+                    <group string="Notes">
+                        <field name="note" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_assignment_rule" model="ir.actions.act_window">
+        <field name="name">Task Assignment Rule</field>
+        <field name="res_model">project.assignment.rule</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

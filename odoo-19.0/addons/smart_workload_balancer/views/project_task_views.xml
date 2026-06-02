@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_form_workload_inherit" model="ir.ui.view">
+        <field name="name">project.task.form.workload</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_ids']" position="after">
+                <group string="Smart Workload" colspan="2" class="o_workload_panel">
+                    <div class="o_workload_action_bar">
+                        <button name="action_suggest_assignee" type="object"
+                                string="Suggest Assignees" class="btn btn-primary btn-sm"
+                                invisible="not project_id"/>
+                        <span class="o_workload_hint">Use workload rules to recommend balanced assignees for this task.</span>
+                    </div>
+                    <field name="recommended_assignee_ids"
+                           widget="many2many_tags"
+                           string="Recommended by System"
+                           invisible="not recommended_assignee_ids"
+                           readonly="1"/>
+                    <field name="workload_warning"
+                           widget="html"
+                           invisible="not workload_warning"
+                           readonly="1"/>
+                    <field name="override_reason"
+                           string="Reason for Override"
+                           invisible="not show_override_reason"
+                           placeholder="Enter the reason for assigning someone outside the recommended list..."/>
+                    <div invisible="not show_override_reason" class="o_workload_action_bar">
+                        <button name="action_confirm_override" type="object"
+                                string="Confirm and Save Reason" class="btn btn-warning btn-sm"/>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
