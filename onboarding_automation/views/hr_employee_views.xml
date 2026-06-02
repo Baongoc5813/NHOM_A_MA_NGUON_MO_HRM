@@ -1,0 +1,37 @@
+<odoo>
+    <record id="view_employee_form_inherit_onboarding" model="ir.ui.view">
+        <field name="name">hr.employee.form.onboarding</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <!-- Changed string to "Onboarding Status" -->
+                <page string="Onboarding Status" name="onboarding">
+                    <header>
+                        <!-- Changed string to "Start Onboarding" -->
+                        <button name="action_start_onboarding"
+                                string="Start Onboarding"
+                                type="object"
+                                class="btn-primary"
+                                invisible="onboarding_status != 'not_started'"/>
+                    </header>
+                    <group>
+                        <!-- Changed string to "General Information" -->
+                        <group string="General Information">
+                            <field name="onboarding_status" widget="badge" 
+                                   decoration-muted="onboarding_status == 'not_started'"
+                                   decoration-warning="onboarding_status == 'in_progress'"
+                                   decoration-success="onboarding_status == 'done'"/>
+                            <!-- Changed string to "Linked Onboarding Request" -->
+                            <field name="onboarding_request_id" readonly="1" string="Linked Onboarding Request"/>
+                        </group>
+                        <!-- Changed string to "Device Allocation" and placeholder to English -->
+                        <group string="Device Allocation">
+                            <field name="assigned_device" placeholder="e.g., Laptop Dell XPS 15, Logitech Mouse"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
