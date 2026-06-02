@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_workload_metric_manager,workload.metric.manager,model_project_workload_metric,project.group_project_manager,1,1,1,1
+access_workload_metric_user,workload.metric.user,model_project_workload_metric,project.group_project_user,1,0,0,0
+access_assignment_rule_manager,assignment.rule.manager,model_project_assignment_rule,project.group_project_manager,1,1,1,1

@@ -1,0 +1,5 @@
+project_id,max_task_threshold,max_overtime_threshold,max_overdue_threshold,skill_weight,workload_weight,active,note
+Project Alpha,8,10,3,40,60,true,Default assignment rule for Project Alpha
+Project Beta,6,8,2,35,65,true,Rule for Project Beta - workload priority
+Project Gamma,10,12,4,50,50,true,Rule for Project Gamma - balanced weighting
+Project Delta,7,9,3,45,55,true,Rule for Project Delta - follow-up and handoff tracking

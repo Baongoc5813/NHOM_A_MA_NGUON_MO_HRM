@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="smart_workload_balancer.workload_dashboard">
+        <div class="o_workload_dashboard_panel">
+            <h4>Smart Workload Dashboard</h4>
+            <p class="text-muted">Dashboard assets are now linked to the addon and ready for Odoo 19 backend rendering.</p>
+        </div>
+    </t>
+</templates>

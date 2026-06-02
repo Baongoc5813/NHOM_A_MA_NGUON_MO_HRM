@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_workload_root" name="Smart Workload" parent="project.menu_main_pm" sequence="100" groups="project.group_project_user"/>
+    <menuitem id="menu_workload_dashboard" name="Smart Workload Dashboard" parent="menu_workload_root" action="action_workload_dashboard" sequence="1" groups="project.group_project_user"/>
+    <menuitem id="menu_workload_metrics" name="Employee Workload Metrics" parent="menu_workload_root" action="action_workload_metric" sequence="2" groups="project.group_project_user"/>
+    <menuitem id="menu_assignment_rules" name="Task Assignment Rule" parent="menu_workload_root" action="action_assignment_rule" sequence="3" groups="project.group_project_manager"/>
+</odoo>

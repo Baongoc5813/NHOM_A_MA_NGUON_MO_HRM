@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+    <!-- Real employees from NovaSync scenario -->
+    <record id="scenario_user_khanh" model="res.users">
+        <field name="name">Đỗ Nhật Khanh</field>
+        <field name="login">nhatkhanh+scenario@novasync.com</field>
+        <field name="password">demo123</field>
+        <field name="email">nhatkhanh+scenario@novasync.com</field>
+        <field name="group_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
+    </record>
+
+    <record id="scenario_user_minh" model="res.users">
+        <field name="name">Nguyễn Văn Minh</field>
+        <field name="login">minh.nguyen+scenario@novasync.com</field>
+        <field name="password">demo123</field>
+        <field name="email">minh.nguyen+scenario@novasync.com</field>
+        <field name="group_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
+    </record>
+
+    <record id="scenario_user_nam" model="res.users">
+        <field name="name">Trần Hoàng Nam</field>
+        <field name="login">nam.tran+scenario@novasync.com</field>
+        <field name="password">demo123</field>
+        <field name="email">nam.tran+scenario@novasync.com</field>
+        <field name="group_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
+    </record>
+
+    <!-- Employee records -->
+    <record id="scenario_employee_khanh" model="hr.employee">
+        <field name="name">Đỗ Nhật Khanh</field>
+        <field name="work_email">nhatkhanh+scenario@novasync.com</field>
+        <field name="work_phone">090 123 4567</field>
+        <field name="job_title">ERP Consultant</field>
+        <field name="user_id" ref="scenario_user_khanh"/>
+    </record>
+
+    <record id="scenario_employee_minh" model="hr.employee">
+        <field name="name">Nguyễn Văn Minh</field>
+        <field name="work_email">minh.nguyen+scenario@novasync.com</field>
+        <field name="job_title">Business Analyst</field>
+        <field name="user_id" ref="scenario_user_minh"/>
+    </record>
+
+    <record id="scenario_employee_nam" model="hr.employee">
+        <field name="name">Trần Hoàng Nam</field>
+        <field name="work_email">nam.tran+scenario@novasync.com</field>
+        <field name="job_title">Technical Consultant</field>
+        <field name="user_id" ref="scenario_user_nam"/>
+    </record>
+
+    <!-- CRM Implementation Project -->
+    <record id="scenario_project_crm_internal" model="project.project">
+        <field name="name">CRM Internal - Hệ thống quản lý khách hàng &amp; bán hàng</field>
+        <field name="description">Triển khai hệ thống CRM nội bộ để quản lý khách hàng và bán hàng</field>
+        <field name="user_id" ref="base.user_admin"/>
+        <field name="favorite_user_ids" eval="[(6, 0, [ref('scenario_user_khanh'), ref('scenario_user_minh'), ref('scenario_user_nam')])]"/>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Assignment Rule for CRM Project -->
+    <record id="scenario_rule_crm" model="project.assignment.rule">
+        <field name="project_id" ref="scenario_project_crm_internal"/>
+        <field name="max_task_threshold">5</field>
+        <field name="max_overtime_threshold">10.0</field>
+        <field name="max_overdue_threshold">2</field>
+        <field name="skill_weight">40.0</field>
+        <field name="workload_weight">60.0</field>
+        <field name="active">True</field>
+        <field name="note">CRM project assignment rule - ensures balanced workload distribution</field>
+    </record>
+
+    <!-- CRM Project Tasks based on NovaSync scenario -->
+    <record id="scenario_task_survey_requirements" model="project.task">
+        <field name="name">Khảo sát yêu cầu khách hàng</field>
+        <field name="description">Tập trung tìm hiểu nhu cầu chi tiết của khách hàng về hệ thống CRM</field>
+        <field name="project_id" ref="scenario_project_crm_internal"/>
+        <field name="user_ids" eval="[(6, 0, [ref('scenario_user_khanh')])]"/>
+        <field name="date_deadline">2026-06-05</field>
+        <field name="priority">2</field>
+    </record>
+
+    <record id="scenario_task_business_analysis" model="project.task">
+        <field name="name">Phân tích nghiệp vụ chi tiết</field>
+        <field name="description">Xây dựng tài liệu phân tích quy trình bán hàng và quản lý khách hàng</field>
+        <field name="project_id" ref="scenario_project_crm_internal"/>
+        <field name="user_ids" eval="[(6, 0, [ref('scenario_user_minh')])]"/>
+        <field name="date_deadline">2026-06-10</field>
+        <field name="priority">1</field>
+    </record>
+
+    <record id="scenario_task_solution_design" model="project.task">
+        <field name="name">Xây dựng tài liệu giải pháp</field>
+        <field name="description">Tạo thiết kế giải pháp chi tiết cho hệ thống CRM dựa trên yêu cầu khách hàng</field>
+        <field name="project_id" ref="scenario_project_crm_internal"/>
+        <field name="user_ids" eval="[(6, 0, [ref('scenario_user_khanh'), ref('scenario_user_minh')])]"/>
+        <field name="date_deadline">2026-06-15</field>
+        <field name="priority">1</field>
+    </record>
+
+    <record id="scenario_task_system_testing" model="project.task">
+        <field name="name">Hỗ trợ kiểm thử hệ thống</field>
+        <field name="description">Thực hiện kiểm thử chức năng, kiểm thử tích hợp và hỗ trợ QA</field>
+        <field name="project_id" ref="scenario_project_crm_internal"/>
+        <field name="user_ids" eval="[(6, 0, [ref('scenario_user_nam')])]"/>
+        <field name="date_deadline">2026-06-20</field>
+        <field name="priority">2</field>
+    </record>
+
+    <record id="scenario_task_user_training" model="project.task">
+        <field name="name">Đào tạo người dùng cuối</field>
+        <field name="description">Chuẩn bị tài liệu đào tạo và thực hiện session đào tạo cho người dùng</field>
+        <field name="project_id" ref="scenario_project_crm_internal"/>
+        <field name="user_ids" eval="[(6, 0, [ref('scenario_user_minh'), ref('scenario_user_nam')])]"/>
+        <field name="date_deadline">2026-06-25</field>
+        <field name="priority">2</field>
+    </record>
+
+    <record id="scenario_task_go_live_support" model="project.task">
+        <field name="name">Hỗ trợ Go-Live</field>
+        <field name="description">Cung cấp hỗ trợ kỹ thuật trong giai đoạn triển khai sản phẩm</field>
+        <field name="project_id" ref="scenario_project_crm_internal"/>
+        <field name="user_ids" eval="[(6, 0, [ref('scenario_user_khanh')])]"/>
+        <field name="date_deadline">2026-06-30</field>
+        <field name="priority">1</field>
+    </record>
+
+    <!-- Services/Products -->
+    <record id="scenario_product_erp_consulting" model="product.template">
+        <field name="name">ERP Consulting Service</field>
+        <field name="type">service</field>
+        <field name="list_price">200.0</field>
+        <field name="sale_ok">True</field>
+    </record>
+
+    <record id="scenario_product_crm_impl" model="product.template">
+        <field name="name">CRM Implementation Service</field>
+        <field name="type">service</field>
+        <field name="list_price">250.0</field>
+        <field name="sale_ok">True</field>
+    </record>
+</odoo>

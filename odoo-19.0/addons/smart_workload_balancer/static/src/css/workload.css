@@ -1,0 +1,120 @@
+.badge_overload { background-color: #dc3545 !important; color: white !important; }
+.badge_high { background-color: #fd7e14 !important; color: white !important; }
+.badge_normal { background-color: #0dcaf0 !important; color: white !important; }
+.badge_available { background-color: #198754 !important; color: white !important; }
+
+.o_workload_summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin: 0 0 16px;
+}
+
+.o_workload_stat,
+.o_workload_card {
+    border: 1px solid #d8dee6;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.o_workload_stat {
+    padding: 12px;
+}
+
+.o_workload_stat_label {
+    display: block;
+    color: #5f6b7a;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.o_workload_stat strong {
+    font-size: 20px;
+}
+
+.o_workload_card {
+    padding: 12px;
+    border-left: 5px solid #6c757d;
+}
+
+.o_workload_card_header,
+.o_workload_score,
+.o_workload_grid {
+    display: flex;
+    gap: 8px;
+}
+
+.o_workload_card_header,
+.o_workload_score {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.o_workload_badge {
+    border-radius: 999px;
+    background: #edf2f7;
+    color: #263445;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 8px;
+    white-space: nowrap;
+}
+
+.o_workload_score {
+    margin: 12px 0;
+    padding: 8px 10px;
+    background: #f8fafc;
+    border-radius: 6px;
+}
+
+.o_workload_grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.o_workload_grid div {
+    padding: 8px;
+    border-radius: 6px;
+    background: #f8fafc;
+}
+
+.o_workload_grid strong,
+.o_workload_grid span {
+    display: block;
+}
+
+.o_workload_grid span,
+.o_workload_updated {
+    color: #5f6b7a;
+    font-size: 12px;
+}
+
+.o_workload_updated {
+    margin-top: 10px;
+}
+
+.o_workload_panel {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #f8fbff 0%, #ffffff 100%);
+    padding: 10px 12px 4px;
+    margin-bottom: 10px;
+}
+
+.o_workload_action_bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.o_workload_hint {
+    color: #5f6b7a;
+    font-size: 12px;
+}
+
+.o_workload_status_available { border-left-color: #198754; }
+.o_workload_status_normal { border-left-color: #0d6efd; }
+.o_workload_status_high { border-left-color: #fd7e14; }
+.o_workload_status_overload { border-left-color: #dc3545; }

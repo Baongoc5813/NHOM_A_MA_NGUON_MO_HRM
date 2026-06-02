@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_workload_metric_tree" model="ir.ui.view">
+        <field name="name">project.workload.metric.tree</field>
+        <field name="model">project.workload.metric</field>
+        <field name="arch" type="xml">
+            <list string="Workload Metrics"
+                  decoration-danger="workload_status == 'overload'"
+                  decoration-warning="workload_status == 'high'"
+                  decoration-success="workload_status == 'available'">
+                <field name="employee_id"/>
+                <field name="project_id"/>
+                <field name="active_tasks_count" string="Active Tasks"/>
+                <field name="overdue_tasks_count" string="Overdue Tasks"/>
+                <field name="completed_tasks_count" string="Completed Tasks"/>
+                <field name="total_timesheet_hours" string="Total Worked Hours" widget="float_time"/>
+                <field name="overtime_hours" string="Overtime Hours" widget="float_time"/>
+                <field name="workload_score" string="Workload Score"/>
+                <field name="workload_status" string="Status" widget="badge"
+                       decoration-danger="workload_status == 'overload'"
+                       decoration-warning="workload_status == 'high'"
+                       decoration-success="workload_status == 'available'"
+                       decoration-info="workload_status == 'normal'"/>
+                <field name="last_updated"/>
+                <button name="action_refresh_metrics" type="object" string="Refresh" class="btn-sm btn-secondary"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_workload_metric_form" model="ir.ui.view">
+        <field name="name">project.workload.metric.form</field>
+        <field name="model">project.workload.metric</field>
+        <field name="arch" type="xml">
+            <form string="Workload Metrics">
+                <header>
+                    <button name="action_refresh_metrics" type="object" string="Refresh Metrics" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="o_workload_summary">
+                        <div class="o_workload_stat">
+                            <span class="o_workload_stat_label">Active Tasks</span>
+                            <strong><field name="active_tasks_count" readonly="1"/></strong>
+                        </div>
+                        <div class="o_workload_stat">
+                            <span class="o_workload_stat_label">Overdue Tasks</span>
+                            <strong><field name="overdue_tasks_count" readonly="1"/></strong>
+                        </div>
+                        <div class="o_workload_stat">
+                            <span class="o_workload_stat_label">Overtime Hours</span>
+                            <strong><field name="overtime_hours" widget="float_time" readonly="1"/></strong>
+                        </div>
+                        <div class="o_workload_stat">
+                            <span class="o_workload_stat_label">Workload Score</span>
+                            <strong><field name="workload_score" readonly="1"/></strong>
+                        </div>
+                    </div>
+                    <group>
+                        <group string="Employee Information">
+                            <field name="employee_id"/>
+                            <field name="project_id"/>
+                            <field name="workload_status" widget="badge"/>
+                            <field name="last_updated"/>
+                        </group>
+                        <group string="Workload Indicators">
+                            <field name="active_tasks_count"/>
+                            <field name="overdue_tasks_count"/>
+                            <field name="completed_tasks_count"/>
+                            <field name="total_timesheet_hours" widget="float_time"/>
+                            <field name="overtime_hours" widget="float_time"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_workload_metric_search" model="ir.ui.view">
+        <field name="name">project.workload.metric.search</field>
+        <field name="model">project.workload.metric</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_id"/>
+                <field name="project_id"/>
+                <filter name="overload" string="Overload" domain="[('workload_status','=','overload')]"/>
+                <filter name="high" string="High Workload" domain="[('workload_status','=','high')]"/>
+                <filter name="available" string="Available Capacity" domain="[('workload_status','=','available')]"/>
+                <filter name="has_overdue" string="Has Overdue Tasks" domain="[('overdue_tasks_count','>',0)]"/>
+                <separator/>
+                <filter name="group_project" string="Project" context="{'group_by': 'project_id'}"/>
+                <filter name="group_status" string="Status" context="{'group_by': 'workload_status'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_workload_metric" model="ir.actions.act_window">
+        <field name="name">Employee Workload Metrics</field>
+        <field name="res_model">project.workload.metric</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_workload_metric_search"/>
+    </record>
+
+    <record id="view_workload_metric_graph" model="ir.ui.view">
+        <field name="name">project.workload.metric.graph</field>
+        <field name="model">project.workload.metric</field>
+        <field name="arch" type="xml">
+            <graph string="Workload Score" type="bar">
+                <field name="employee_id"/>
+                <field name="workload_score" type="measure"/>
+                <field name="active_tasks_count" type="measure"/>
+                <field name="overdue_tasks_count" type="measure"/>
+                <field name="overtime_hours" type="measure"/>
+            </graph>
+        </field>
+    </record>
+</odoo>

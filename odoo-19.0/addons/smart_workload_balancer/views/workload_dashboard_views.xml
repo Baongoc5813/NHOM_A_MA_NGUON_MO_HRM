@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_workload_dashboard_kanban" model="ir.ui.view">
+        <field name="name">project.workload.metric.kanban</field>
+        <field name="model">project.workload.metric</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="workload_status" class="o_workload_kanban">
+                <field name="employee_id"/>
+                <field name="workload_status"/>
+                <field name="workload_status_label"/>
+                <field name="workload_score"/>
+                <field name="active_tasks_count"/>
+                <field name="overdue_tasks_count"/>
+                <field name="overtime_hours"/>
+                <field name="total_timesheet_hours"/>
+                <field name="project_id"/>
+                <field name="last_updated"/>
+                <templates>
+                    <t t-name="card">
+                        <div t-attf-class="o_workload_card o_workload_status_#{record.workload_status.raw_value}">
+                            <div class="o_workload_card_header">
+                                <div>
+                                    <strong><t t-esc="record.employee_id.value"/></strong>
+                                    <div class="text-muted small"><t t-esc="record.project_id.value"/></div>
+                                </div>
+                                <span class="o_workload_badge"><t t-esc="record.workload_status_label.value"/></span>
+                            </div>
+                            <div class="o_workload_score">
+                                <span>Score</span>
+                                <strong><t t-esc="record.workload_score.value"/></strong>
+                            </div>
+                            <div class="o_workload_grid">
+                                <div>
+                                    <strong><t t-esc="record.active_tasks_count.value"/></strong>
+                                    <span>Tasks</span>
+                                </div>
+                                <div>
+                                    <strong><t t-esc="record.overdue_tasks_count.value"/></strong>
+                                    <span>Overdue</span>
+                                </div>
+                                <div>
+                                    <strong><t t-esc="record.total_timesheet_hours.value"/>h</strong>
+                                    <span>Timesheet</span>
+                                </div>
+                                <div>
+                                    <strong><t t-esc="record.overtime_hours.value"/>h</strong>
+                                    <span>Overtime</span>
+                                </div>
+                            </div>
+                            <div class="o_workload_updated">Updated: <t t-esc="record.last_updated.value"/></div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_workload_dashboard" model="ir.actions.act_window">
+        <field name="name">Smart Workload Dashboard</field>
+        <field name="res_model">project.workload.metric</field>
+        <field name="view_mode">kanban,list,graph,form</field>
+        <field name="view_ids" eval="[(5,0,0),
+            (0,0,{'view_mode':'kanban','view_id':ref('view_workload_dashboard_kanban')}),
+            (0,0,{'view_mode':'list','view_id':ref('view_workload_metric_tree')}),
+            (0,0,{'view_mode':'graph','view_id':ref('view_workload_metric_graph')}),
+        ]"/>
+    </record>
+</odoo>
