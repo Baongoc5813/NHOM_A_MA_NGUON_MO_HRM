@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_applicant_form_inherit_talent_matching" model="ir.ui.view">
+        <field name="name">hr.applicant.form.inherit.talent.matching</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//header" position="inside">
+                <button name="action_send_reconnect_email" type="object" string="Send Reconnect Email" class="oe_highlight" invisible="active == True"/>
+                <field name="reengagement_status" widget="statusbar" statusbar_visible="none,contacted,updated" invisible="active == True"/>
+            </xpath>
+
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page string="Auto-Matching &amp; Talent Pool">
+                        <group>
+                            <group string="Competency assessment">
+                                <field name="interview_score" string="Old Interview Score"/>
+                                <field name="potential_score" readonly="1" string="System Potential Score"/>
+                            </group>
+                            <group string="System status">
+                                <field name="match_score" readonly="1" string="New Job Match Score (%)" widget="progressbar"/>
+                                <field name="access_token" groups="base.group_no_one" readonly="1" string="Portal Token"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
