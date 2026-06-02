@@ -33,12 +33,12 @@ Dưới đây là ma trận phân công thiết kế chi tiết (Use Case, High-
 | Tên Tính Năng Mới | Nội Dung Thiết Kế & Phát Triển | Thành Viên Phụ Trách | Trạng Thái Thiết Kế |
 | :--- | :--- | :---: | :---: |
 | **Phân hệ Nhân Sự Tổng Quan (HRM Core)** | Mô tả sơ đồ BPMN từ quy trình T1 đến T6, phân quyền người dùng, vẽ Use Case chi tiết. | *Cả nhóm* | Done (100%) |
-| **Talent Pool & Auto Re-engagement** | Thiết kế Use Case, giao diện người dùng, cấu hình backend và cơ sở dữ liệu để tự động tương tác lại với ứng viên tiềm năng. | *Phụ trách Module 1* | Done (100%) |
-| **Interviews Scheduling & Tracking** | Thiết kế lịch hẹn phỏng vấn thông minh, theo dõi trạng thái ứng viên qua các vòng, đồng bộ hóa thông báo qua email. | *Phụ trách Module 2* | Done (100%) |
-| **Hiring Workflow Automation** | Tự động hóa quy trình phê duyệt tuyển dụng, chuyển trạng thái từ hồ sơ ứng viên sang hồ sơ thử việc tự động. | *Phụ trách Module 3* | Done (100%) |
-| **Candidate Portal** | Cổng thông tin dành riêng cho ứng viên (High-level & Data design cho giao diện web portal), giúp ứng viên cập nhật thông tin và theo dõi kết quả. | *Phụ trách Module 4* | Done (100%) |
-| **Hybrid Work & WFH Management** | Module quản lý mô hình làm việc linh hoạt, đăng ký làm việc từ xa (WFH), tracking hiệu suất và đồng bộ chấm công. | *Phụ trách Module 5* | Done (100%) |
-| **Smart Workload Balancing** | Tính năng tự động phân bổ khối lượng công việc, tối ưu hóa task dựa trên năng lực và lịch làm việc của nhân sự. | *Phụ trách Module 6* | Done (100%) |
+| **Talent Pool & Auto Re-engagement** | Thiết kế Use Case, giao diện người dùng, cấu hình backend và cơ sở dữ liệu để tự động tương tác lại với ứng viên tiềm năng. | *Minh Đức* | Done (100%) |
+| **Interviews Scheduling & Tracking** | Thiết kế lịch hẹn phỏng vấn thông minh, theo dõi trạng thái ứng viên qua các vòng, đồng bộ hóa thông báo qua email. | *Tuyết Như* | Done (100%) |
+| **Hiring Workflow Automation** | Tự động hóa quy trình phê duyệt tuyển dụng, chuyển trạng thái từ hồ sơ ứng viên sang hồ sơ thử việc tự động. | *Phương Quỳnh* | Done (100%) |
+| **Candidate Portal** | Cổng thông tin dành riêng cho ứng viên (High-level & Data design cho giao diện web portal), giúp ứng viên cập nhật thông tin và theo dõi kết quả. | *Kiến Quốc* | Done (100%) |
+| **Hybrid Work & WFH Management** | Module quản lý mô hình làm việc linh hoạt, đăng ký làm việc từ xa (WFH), tracking hiệu suất và đồng bộ chấm công. | *Quốc Huy* | Done (100%) |
+| **Smart Workload Balancing** | Tính năng tự động phân bổ khối lượng công việc, tối ưu hóa task dựa trên năng lực và lịch làm việc của nhân sự. | *Bảo Ngọc* | Done (100%) |
 
 ---
 
