@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="books_list_template" name="Library: List Books">
+        <t t-call="website.layout">
+            <t t-set="title">Thư viện UEH - Danh mục sách</t>
+            <div id="wrap" class="oe_structure">
+                <section class="s_banner bg-900 pt80 pb80">
+                    <div class="container text-center">
+                        <h1 class="display-3 text-white fw-bold">Thư viện Điện tử</h1>
+                        <p class="lead text-white-75">Tra cứu và mượn sách trực tuyến nhanh chóng</p>
+                    </div>
+                </section>
+
+                <div class="container mt-5 mb-5">
+                    <div class="row">
+                        <t t-foreach="books" t-as="book">
+                            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                <div class="card h-100 shadow-sm border-0">
+                                    <div class="card-img-top text-center bg-light" style="height: 200px; overflow: hidden;">
+                                        <t t-if="book.image">
+                                            <img t-attf-src="data:image/png;base64,#{book.image}" class="img-fluid h-100 w-100" style="object-fit: cover;"/>
+                                        </t>
+                                        <t t-else="">
+                                            <i class="fa fa-book fa-5x text-secondary mt-5"></i>
+                                        </t>
+                                    </div>
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title fw-bold text-truncate" t-esc="book.name"/>
+                                        <p class="card-text text-muted small">Tác giả: <t t-esc="book.author"/></p>
+                                        <div class="mt-auto">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="badge bg-success">Còn: <t t-esc="book.quantity"/></span>
+                                                <a t-attf-href="/library/book/#{book.id}" class="btn btn-outline-primary btn-sm">Chi tiết</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="book_detail_template" name="Library: Book Detail">
+        <t t-call="website.layout">
+            <t t-set="title"><t t-esc="book.name"/></t>
+            <div id="wrap" class="oe_structure mt-5 mb-5">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-5 text-center">
+                            <t t-if="book.image">
+                                <img t-attf-src="data:image/png;base64,#{book.image}" class="img-fluid rounded shadow"/>
+                            </t>
+                            <t t-else="">
+                                <div class="bg-light p-5 rounded">
+                                    <i class="fa fa-book fa-9x text-secondary"></i>
+                                </div>
+                            </t>
+                        </div>
+                        <div class="col-md-7">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/library/books">Thư viện</a></li>
+                                    <li class="breadcrumb-item active"><t t-esc="book.name"/></li>
+                                </ol>
+                            </nav>
+                            <h1 class="fw-bold mb-3" t-esc="book.name"/>
+                            <p class="text-primary h5">Tác giả: <t t-esc="book.author"/></p>
+                            <hr/>
+                            <p class="text-muted" t-esc="book.description or 'Chưa có mô tả cho cuốn sách này.'"/>
+                            <div class="mt-4 p-3 bg-light rounded">
+                                <p class="mb-1"><strong>Mã ISBN:</strong> <t t-esc="book.isbn or 'N/A'"/></p>
+                                <p class="mb-0"><strong>Số lượng sẵn có:</strong> <t t-esc="book.quantity"/></p>
+                            </div>
+                            <a t-attf-href="/library/borrow/#{book.id}" class="btn btn-primary btn-lg mt-4 px-5">Đăng ký mượn ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="borrow_form_template" name="Library: Borrow Form">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-5 mb-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card shadow border-0">
+                            <div class="card-body p-5">
+                                <h2 class="text-center mb-4">Phiếu Mượn Sách</h2>
+                                <p class="text-center text-muted">Bạn đang đăng ký mượn: <strong t-esc="book.name"/></p>
+                                
+                                <div t-if="error" class="alert alert-danger" role="alert">
+                                    <i class="fa fa-exclamation-triangle me-2"></i><t t-esc="error"/>
+                                </div>
+
+                                <form action="/library/borrow/submit" method="POST">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <input type="hidden" name="book_id" t-att-value="book.id"/>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Họ và tên *</label>
+                                        <input type="text" class="form-control" name="name" t-att-value="form_data.get('name', '')" placeholder="Nguyễn Văn A" required="1"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Email liên hệ *</label>
+                                        <input type="email" class="form-control" name="email" t-att-value="form_data.get('email', '')" placeholder="example@email.com" required="1"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Số điện thoại</label>
+                                        <input type="text" class="form-control" name="phone" t-att-value="form_data.get('phone', '')" placeholder="0901234567"/>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary btn-lg mt-3">Xác nhận gửi</button>
+                                        <a href="/library/books" class="btn btn-link text-muted">Quay lại</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

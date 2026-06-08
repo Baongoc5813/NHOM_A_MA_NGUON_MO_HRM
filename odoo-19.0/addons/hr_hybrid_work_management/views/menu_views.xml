@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="menu_hr_hybrid_root"
+        name="Hybrid Work"
+        action="action_hr_hybrid_request"
+        web_icon="hr_hybrid_work_management,static/description/icon.png"
+        sequence="20"/>
+
+    <menuitem
+        id="menu_hr_hybrid_my_request"
+        name="My Requests"
+        parent="menu_hr_hybrid_root"
+        action="action_hr_hybrid_my_request"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_hr_hybrid_team_request"
+        name="Team Requests"
+        parent="menu_hr_hybrid_root"
+        action="action_hr_hybrid_team_request"
+        sequence="20"/>
+
+    <menuitem
+        id="menu_hr_hybrid_all_request"
+        name="All Requests"
+        parent="menu_hr_hybrid_root"
+        action="action_hr_hybrid_request"
+        sequence="30"/>
+
+</odoo>

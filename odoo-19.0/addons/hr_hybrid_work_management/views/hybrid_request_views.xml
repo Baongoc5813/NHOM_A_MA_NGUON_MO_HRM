@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_hr_hybrid_request_list" model="ir.ui.view">
+        <field name="name">hr.hybrid.request.list</field>
+        <field name="model">hr.hybrid.request</field>
+        <field name="arch" type="xml">
+            <list string="Hybrid/WFH Requests">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="work_mode"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="requested_days"/>
+                <field name="worked_hours"/>
+                <field name="attendance_status" widget="badge"/>
+                <field name="manager_id"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hr_hybrid_request_form" model="ir.ui.view">
+        <field name="name">hr.hybrid.request.form</field>
+        <field name="model">hr.hybrid.request</field>
+        <field name="arch" type="xml">
+            <form string="Hybrid/WFH Request">
+
+                <field name="can_manager_approve" invisible="1"/>
+                <field name="can_hr_approve_attendance" invisible="1"/>
+                <field name="check_in_time" invisible="1"/>
+                <field name="check_out_time" invisible="1"/>
+
+                <header>
+                    <button name="action_submit"
+                            string="Submit"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+
+                    <button name="action_approve"
+                            string="Approve"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'submitted' or not can_manager_approve"/>
+
+                    <button name="action_reject"
+                            string="Reject"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="state != 'submitted' or not can_manager_approve"/>
+
+                    <button name="action_cancel"
+                            string="Cancel"
+                            type="object"
+                            invisible="state not in ('draft','submitted')"/>
+
+                    <button name="action_reset_to_draft"
+                            string="Reset to Draft"
+                            type="object"
+                            invisible="state != 'cancelled'"/>
+
+                    <button name="action_check_in"
+                            string="Check In"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'approved' or check_in_time"/>
+
+                    <button name="action_check_out"
+                            string="Check Out"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="state != 'approved' or not check_in_time or check_out_time"/>
+
+                    <button name="action_adjust_attendance"
+                            string="Adjust Attendance"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="not can_hr_approve_attendance or attendance_status not in ('pending','approved')"/>
+
+                    <button name="action_approve_attendance"
+                            string="Approve Attendance"
+                            type="object"
+                            class="btn-primary"
+                            invisible="not can_hr_approve_attendance or attendance_status not in ('pending','adjusted')"/>
+
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,submitted,approved,rejected,cancelled"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+
+                    <group string="Employee Information">
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="department_id"/>
+                            <field name="manager_id"/>
+                            <field name="work_mode"/>
+                        </group>
+
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="requested_days" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <group string="WFH Monthly Balance">
+                        <group>
+                            <field name="monthly_wfh_limit"/>
+                            <field name="used_wfh_days" readonly="1"/>
+                            <field name="remaining_wfh_days" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <group string="Request Detail">
+                        <field name="reason"
+                               placeholder="Enter reason for Hybrid/WFH request..."/>
+                    </group>
+
+                    <group string="Daily Work Report">
+                        <field name="daily_report"
+                               placeholder="Enter completed tasks or work progress for this WFH/Hybrid day..."/>
+                    </group>
+
+                    <group string="WFH Attendance">
+                        <group>
+                            <field name="attendance_id" readonly="1"/>
+                            <field name="check_in_time" readonly="1"/>
+                            <field name="check_out_time" readonly="1"/>
+                            <field name="worked_hours" readonly="1"/>
+                            <field name="attendance_status" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <group string="Attendance Adjustment">
+                        <field name="adjustment_reason"
+                               placeholder="Enter reason if HR adjusts attendance time..."/>
+                    </group>
+
+                    <group string="Manager Review">
+                        <field name="manager_note"
+                               placeholder="Manager comment after reviewing the request..."/>
+                    </group>
+                </sheet>
+
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hr_hybrid_request_search" model="ir.ui.view">
+        <field name="name">hr.hybrid.request.search</field>
+        <field name="model">hr.hybrid.request</field>
+        <field name="arch" type="xml">
+            <search string="Hybrid/WFH Requests">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="manager_id"/>
+                <field name="work_mode"/>
+                <field name="attendance_status"/>
+
+                <filter name="filter_my_requests"
+                        string="My Requests"
+                        domain="[('employee_id.user_id','=',uid)]"/>
+
+                <filter name="filter_team_requests"
+                        string="Team Requests"
+                        domain="[('manager_id.user_id','=',uid)]"/>
+
+                <separator/>
+
+                <filter name="filter_draft"
+                        string="Draft"
+                        domain="[('state','=','draft')]"/>
+
+                <filter name="filter_submitted"
+                        string="Submitted"
+                        domain="[('state','=','submitted')]"/>
+
+                <filter name="filter_approved"
+                        string="Approved"
+                        domain="[('state','=','approved')]"/>
+
+                <filter name="filter_rejected"
+                        string="Rejected"
+                        domain="[('state','=','rejected')]"/>
+
+                <filter name="filter_cancelled"
+                        string="Cancelled"
+                        domain="[('state','=','cancelled')]"/>
+
+                <separator/>
+
+                <filter name="filter_attendance_pending"
+                        string="Attendance Pending"
+                        domain="[('attendance_status','=','pending')]"/>
+
+                <filter name="filter_attendance_approved"
+                        string="Attendance Approved"
+                        domain="[('attendance_status','=','approved')]"/>
+
+                <filter name="filter_attendance_adjusted"
+                        string="Attendance Adjusted"
+                        domain="[('attendance_status','=','adjusted')]"/>
+
+                <separator/>
+
+                <filter name="group_employee"
+                        string="Employee"
+                        context="{'group_by': 'employee_id'}"/>
+
+                <filter name="group_department"
+                        string="Department"
+                        context="{'group_by': 'department_id'}"/>
+
+                <filter name="group_state"
+                        string="Status"
+                        context="{'group_by': 'state'}"/>
+
+                <filter name="group_attendance_status"
+                        string="Attendance Status"
+                        context="{'group_by': 'attendance_status'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_hybrid_request" model="ir.actions.act_window">
+        <field name="name">All Hybrid/WFH Requests</field>
+        <field name="res_model">hr.hybrid.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_hr_hybrid_request_search"/>
+    </record>
+
+    <record id="action_hr_hybrid_my_request" model="ir.actions.act_window">
+        <field name="name">My Requests</field>
+        <field name="res_model">hr.hybrid.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_hr_hybrid_request_search"/>
+        <field name="domain">[('employee_id.user_id','=',uid)]</field>
+        <field name="context">{'search_default_filter_my_requests': 1}</field>
+    </record>
+
+    <record id="action_hr_hybrid_team_request" model="ir.actions.act_window">
+        <field name="name">Team Requests</field>
+        <field name="res_model">hr.hybrid.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_hr_hybrid_request_search"/>
+        <field name="domain">[('manager_id.user_id','=',uid)]</field>
+        <field name="context">{'search_default_filter_team_requests': 1, 'search_default_filter_submitted': 1}</field>
+    </record>
+
+</odoo>

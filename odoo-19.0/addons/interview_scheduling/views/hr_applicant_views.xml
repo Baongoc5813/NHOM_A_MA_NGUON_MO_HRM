@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_hr_applicant_interview_form" model="ir.ui.view">
+        <field name="name">hr.applicant.interview.form</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button name="action_open_interviews"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-calendar">
+                    <field name="interview_count" widget="statinfo"
+                           string="Interviews"/>
+                </button>
+                <button name="action_open_feedbacks"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-comments"
+                        groups="interview_scheduling.group_hr_interview_officer">
+                    <field name="interview_feedback_count" widget="statinfo"
+                           string="Feedbacks"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//header" position="inside">
+                <button name="action_schedule_interview"
+                        string="Schedule Interview"
+                        type="object"
+                        class="btn-primary"
+                        groups="interview_scheduling.group_hr_interview_officer"/>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Interview History" name="interview_history"
+                      groups="interview_scheduling.group_hr_interview_officer">
+                    <group>
+                        <group string="Summary">
+                            <field name="last_interview_date" readonly="1"/>
+                            <field name="average_score" readonly="1"/>
+                            <field name="overall_recommendation"
+                                   widget="badge"
+                                   decoration-success="overall_recommendation == 'pass'"
+                                   decoration-danger="overall_recommendation == 'fail'"
+                                   decoration-warning="overall_recommendation in ('consider', 'hold')"
+                                   decoration-info="overall_recommendation == 'pending'"
+                                   readonly="1"/>
+                            <field name="last_interview_attendance"
+                                   widget="badge"
+                                   decoration-success="last_interview_attendance == 'showed_up'"
+                                   decoration-danger="last_interview_attendance == 'no_show'"
+                                   decoration-warning="last_interview_attendance == 'rescheduled'"
+                                   readonly="1"/>
+                        </group>
+                    </group>
+                    <separator string="Interview Events"/>
+                    <field name="interview_event_ids" nolabel="1" readonly="1">
+                        <list>
+                            <field name="name"/>
+                            <field name="interview_round"/>
+                            <field name="interview_type" widget="badge"/>
+                            <field name="start"/>
+                            <field name="stop"/>
+                            <field name="candidate_attendance" widget="badge"
+                                   decoration-success="candidate_attendance == 'showed_up'"
+                                   decoration-danger="candidate_attendance == 'no_show'"
+                                   decoration-warning="candidate_attendance == 'rescheduled'"/>
+                            <field name="interview_feedback_count" string="Feedbacks"/>
+                        </list>
+                    </field>
+                    <separator string="Feedbacks"/>
+                    <field name="interview_feedback_ids" nolabel="1" readonly="1">
+                        <list>
+                            <field name="interview_round"/>
+                            <field name="interview_date"/>
+                            <field name="interviewer_id"/>
+                            <field name="score_overall"/>
+                            <field name="recommendation" widget="badge"
+                                   decoration-success="recommendation == 'pass'"
+                                   decoration-danger="recommendation == 'fail'"
+                                   decoration-warning="recommendation == 'consider'"/>
+                            <field name="state" widget="badge"
+                                   decoration-success="state == 'submitted'"
+                                   decoration-info="state == 'draft'"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

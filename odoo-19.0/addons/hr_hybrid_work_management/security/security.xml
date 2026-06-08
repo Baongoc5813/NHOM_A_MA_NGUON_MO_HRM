@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_hr_hybrid_employee" model="res.groups">
+        <field name="name">Hybrid Work Employee</field>
+    </record>
+
+    <record id="group_hr_hybrid_manager" model="res.groups">
+        <field name="name">Hybrid Work Manager</field>
+    </record>
+
+    <record id="group_hr_hybrid_hr" model="res.groups">
+        <field name="name">Hybrid Work HR Officer</field>
+    </record>
+
+</odoo>

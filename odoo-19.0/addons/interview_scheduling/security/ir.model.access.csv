@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_interview_feedback_officer,interview.feedback.officer,model_hr_interview_feedback,interview_scheduling.group_hr_interview_officer,1,1,1,1
+access_interview_feedback_interviewer,interview.feedback.interviewer,model_hr_interview_feedback,interview_scheduling.group_interviewer,1,1,0,0
+access_schedule_wizard_officer,schedule.wizard.officer,model_interview_schedule_wizard,interview_scheduling.group_hr_interview_officer,1,1,1,1
+access_schedule_wizard_slot_officer,schedule.wizard.slot.officer,model_interview_schedule_wizard_slot,interview_scheduling.group_hr_interview_officer,1,1,1,1

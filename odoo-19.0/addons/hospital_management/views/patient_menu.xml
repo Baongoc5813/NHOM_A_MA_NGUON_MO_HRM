@@ -1,0 +1,15 @@
+<odoo >
+    <record id="action_patient" model="ir.actions.act_window">
+        <field name="name">Bệnh nhân</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">list,form</field>
+    </record>
+<menuitem id="menu_patient_root" name="Quản lý bệnh nhân" sequence="10"/> 
+<menuitem id="menu_patient_list" name="Danh sách bệnh nhân" parent="menu_patient_root"
+action="action_patient"/>
+    <menuitem id="menu_doctor_list" 
+              name="Bác sĩ" 
+              parent="menu_patient_root"
+              action="action_doctor" 
+              sequence="10"/>
+</odoo >
