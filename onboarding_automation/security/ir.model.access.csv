@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_hr_onboarding_request_user,access.hr.onboarding.request.user,model_hr_onboarding_request,base.group_user,1,1,1,1
-access_hr_onboarding_task_user,access.hr.onboarding.task.user,model_hr_onboarding_task,base.group_user,1,1,1,1
